@@ -8,5 +8,7 @@
     <title><?= $title ?> :: PHP Basics</title>
 </head>
 <body>
-
-<?php require 'views/layouts/nav.php' ?>
+    <?php require 'views/layouts/nav.php' ?>
+    <?php require $viewContentPath ?>
+</body>
+</html>

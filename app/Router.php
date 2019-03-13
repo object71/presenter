@@ -35,12 +35,12 @@ class Router
         }
 
         return 'views/404.php';
-    }    
+    }
 
-    protected function callAction($controller, $action)
+    protected function callAction($controllerName, $action)
     {
-        $controller =  "Presenter\\Controllers\\{$controller}";
-        $controller = new $controller;
+        $controllerFullname =  "Presenter\\Controllers\\{$controllerName}";
+        $controller = new $controllerFullname;
 
         if (! method_exists($controller, $action)) {
             throw new Exception("{$controller} does not have {$action}");
