@@ -1,23 +1,22 @@
 <?php
 
-namespace Presenter\App\Database;
-use \PDO;
+use Presenter\App\App;
+use Medoo\Medoo;
 
-// A class responsible for database connections.
-class Connection
-{
-    public static function make(array $config)
-    {
-        try {
-            return new PDO(
-                "{$config['driver']}:host={$config['host']};dbname={$config['dbname']}",
-                $config['username'],
-                $config['password'],
-                $config['options']
-            );
-        }
-        catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-}
+$database = new Medoo([
+	'database_type' => 'sqlite',
+	'database_file' => ':memory:'
+]);
+
+$createTaskTableQuery = <<< EOF
+CREATE TABLE IF NOT EXISTS Tasks
+(
+	id INT PRIMARY KEY AUTOINCREMENT,
+	description TEXT,
+	completed TEXT
+);
+EOF;
+
+$database->query($createTaskTableQuery);
+
+App::bind('database', $database);

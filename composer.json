@@ -3,5 +3,8 @@
         "classmap": [
             "./"
         ]
+    },
+    "require": {
+        "catfan/medoo": "^1.6"
     }
 }

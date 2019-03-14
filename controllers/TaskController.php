@@ -8,7 +8,11 @@ class TaskController
 {
     public static function index()
     {
-        $tasks = App::get('db')->selectAll('tasks', Task::class);
+        $database = App::get('database');
+        $tasks = $database->select('Tasks', ["id", "description", "completed"]);
+        if (!$tasks) {
+            $tasks = [];
+        }
         $title = 'Tasks';
 
         return view('tasks.index', compact('tasks', 'title'));
@@ -18,7 +22,7 @@ class TaskController
     {  
         // Save the task.
         try {
-            App::get('db')->insert('tasks', ['description' => $_POST['description']]);
+            App::get('database')->insert('Tasks', ['description' => $_POST['description']]);
         }
         catch (Exception $e) {
             require "views/500.php";
