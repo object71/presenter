@@ -19,16 +19,17 @@ class TaskController
     }
 
     public static function store()
-    {  
+    {
         // Save the task.
         try {
-            App::get('database')->insert('Tasks', ['description' => $_POST['description']]);
+            $database = App::get('database');
+            $database->insert('Tasks', ['description' => $_POST['description']]);
         }
         catch (Exception $e) {
             require "views/500.php";
         }
 
         // Redirect to tasks.
-        return redirect('tasks');
+        return TaskController::index();
     }
 }
